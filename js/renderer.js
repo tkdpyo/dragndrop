@@ -3,9 +3,21 @@ export function createRenderer(dom, state, handlers) {
     dom.emptyState.style.display = state.items.length === 0 ? 'flex' : 'none';
   }
 
+  function updateColorToolbar() {
+    dom.colorButtons.forEach((button) => {
+      const isSelected = state.selectedId !== null;
+      const selectedItem = state.items.find((item) => item.id === state.selectedId);
+      const isActive = selectedItem?.color === button.dataset.color;
+
+      button.disabled = !isSelected;
+      button.classList.toggle('is-active', Boolean(isActive));
+    });
+  }
+
   function updateItemPosition(element, item) {
     element.style.left = `${item.x}px`;
     element.style.top = `${item.y}px`;
+    element.dataset.color = item.color || 'pink';
     element.classList.toggle('selected', item.id === state.selectedId);
     element.classList.toggle('dragging', state.dragState?.id === item.id);
   }
@@ -55,6 +67,7 @@ export function createRenderer(dom, state, handlers) {
 
   return function render(shouldRebuild = true) {
     updateEmptyState();
+    updateColorToolbar();
 
     if (!shouldRebuild) {
       state.items.forEach((item) => {

@@ -7,5 +7,6 @@ export function getDomElements() {
     exportBtn: document.getElementById('exportBtn'),
     importInput: document.getElementById('importInput'),
     resetBtn: document.getElementById('resetBtn'),
+    colorButtons: document.querySelectorAll('.color-swatch'),
   };
 }

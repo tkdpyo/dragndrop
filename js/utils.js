@@ -12,6 +12,10 @@ export function isBoardItem(item) {
     typeof item.id === 'string' &&
     typeof item.text === 'string' &&
     typeof item.x === 'number' &&
-    typeof item.y === 'number'
+    typeof item.y === 'number' &&
+    (item.color === undefined ||
+      item.color === 'pink' ||
+      item.color === 'green' ||
+      item.color === 'blue')
   );
 }

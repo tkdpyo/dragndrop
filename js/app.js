@@ -1,7 +1,7 @@
 import { getDomElements } from './dom.js';
 import { createState } from './state.js';
 import { loadItems, saveItems, clearItems } from './storage.js';
-import { createNewItem, removeItem, updateItemText } from './item-service.js';
+import { createNewItem, removeItem, updateItemColor, updateItemText } from './item-service.js';
 import { exportItems, importItems } from './import-export.js';
 import { createRenderer } from './renderer.js';
 import { createDragController } from './drag.js';
@@ -48,6 +48,16 @@ function addItem() {
   render();
 }
 
+function applyColor(color) {
+  if (!state.selectedId) {
+    return;
+  }
+
+  updateItemColor(state.items, state.selectedId, color);
+  persistItems();
+  render();
+}
+
 function saveLayout() {
   persistItems();
   alert('현재 배치를 저장했습니다.');
@@ -69,6 +79,9 @@ function bindToolbarEvents() {
   dom.addItemBtn.addEventListener('click', addItem);
   dom.saveBtn.addEventListener('click', saveLayout);
   dom.exportBtn.addEventListener('click', () => exportItems(state.items));
+  dom.colorButtons.forEach((button) => {
+    button.addEventListener('click', () => applyColor(button.dataset.color));
+  });
   dom.importInput.addEventListener('change', (event) => {
     const file = event.target.files?.[0];
 
