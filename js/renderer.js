@@ -25,13 +25,13 @@ export function createRenderer(dom, state, handlers) {
     const deleteButton = document.createElement('button');
     deleteButton.className = 'item-delete';
     deleteButton.type = 'button';
-    deleteButton.textContent = '×';
+    deleteButton.textContent = 'x';
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation();
       handlers.onDelete(item.id);
     });
 
-    header.append(idLabel, deleteButton);
+    header.append(deleteButton);
 
     const content = document.createElement('div');
     content.className = 'item-content';
