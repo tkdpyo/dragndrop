@@ -19,13 +19,13 @@ export function createRenderer(dom, state, handlers) {
     const header = document.createElement('div');
     header.className = 'item-header';
 
-    const idLabel = document.createElement('span');
-    idLabel.textContent = item.id;
-
     const deleteButton = document.createElement('button');
     deleteButton.className = 'item-delete';
     deleteButton.type = 'button';
     deleteButton.textContent = 'x';
+    deleteButton.addEventListener('pointerdown', (event) => {
+      event.stopPropagation();
+    });
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation();
       handlers.onDelete(item.id);
